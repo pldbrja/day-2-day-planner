@@ -22,9 +22,8 @@ function entryColorCode() {
 
 function getValues() {
     $(".description").each(function() {
-        for (i = 0; i < localStorage.length; i++) {
-            $(this).val(localStorage.getItem(i));
-        };
+        var descNumber = $(this).attr("id")
+            $(this).val(localStorage.getItem(descNumber));
     });
 };
 
