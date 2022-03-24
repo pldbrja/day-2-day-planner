@@ -3,6 +3,33 @@ var informationEntry = $(".description");
 
 $("#currentDay").text(todayDate.format("[The current date is] dddd, MMMM Do[.]"));
 
+function entryColorCode() {
+    var todayHour = moment().hour();
+    var assignHour = informationEntry.attr("data-store");
+
+    console.log(todayHour);
+    console.log(assignHour);
+
+    $(".time-block").children("textarea").each(function () {
+            if(todayHour < assignHour) {
+                $(this).addClass("future");
+            } else if(todayHour == assignHour) {
+                $(this).addClass("present");
+            } else {
+                $(this).addClass("past");
+            };
+        getValues();
+    });
+};
+
+function getValues(hour) {
+    var savedDescription = localStorage.getItem(hour);
+    
+
+
+    console.log(savedDescription)
+};
+
 $(".saveBtn").on("click", function() {
     var loggedDescription = $(this).siblings(".description").val();
     var descriptionNo = $(this).siblings(".description").data("store");
@@ -12,38 +39,8 @@ $(".saveBtn").on("click", function() {
 
 });
 
-function entryColorCode() {
-    var todayHour = moment().hours();
-    var assignHour = informationEntry.map(function() {
-        return $(this).data("store");
-    })
-
-    $(".time-block").children("textarea").each(function () {
-        console.log(informationEntry.attr("data-store"));
-
-    if(todayHour < assignHour) {
-        informationEntry.addClass("future");
-        informationEntry.removeClass("present");
-    } else if(todayHour == assignHour) {
-        informationEntry.addClass("present");
-    } else {
-        informationEntry.addClass("past");
-    }
-});
-};
-
-function init() {
-    var savedDescription = function () {
-        for (var i=0; i < localStorage.length; i++) {
-        localStorage.getItem(key[i]);
-        };
-    };
-
-    $(".time-block").each(function () {
-         $(this).children(".description").val = savedDescription;
-    });
-};
-
-init();
+getValues();
 
 entryColorCode();
+
+console.log(localStorage);
